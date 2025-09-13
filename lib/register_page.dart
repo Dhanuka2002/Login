@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatelessWidget {
+  const RegisterPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       body: SafeArea(
-        child:Center(
-          child:Column(
+        child: Center(
+          child: Column(
             children: [
-              SizedBox(height: 50),
+              SizedBox(height: 50,),
 
               Icon(
-                Icons.lock,
+                Icons.verified_user,
                 size: 100,
               ),
 
               SizedBox(height: 50),
 
               Text(
-                  'Welcome back',
-                  style: TextStyle(color: Colors.black,fontSize: 24),
+                'Register Now',
+                style: TextStyle(color: Colors.black,fontSize: 24),
               ),
 
               SizedBox(height: 50,),
@@ -37,6 +37,16 @@ class LoginPage extends StatelessWidget {
                 ),
               ),
               //password text field
+              Padding(
+                padding: EdgeInsets.only(left: 24.0,right: 24.0,bottom: 15.0),
+                child: TextField(
+                  decoration: InputDecoration(
+                    labelText: "Enter your password",
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+              ),
+
               Padding(
                 padding: EdgeInsets.only(left: 24.0, top: 4.0,right: 24.0,bottom: 15.0),
                 child: TextField(
@@ -64,7 +74,7 @@ class LoginPage extends StatelessWidget {
                       ),
                     ),
                     child: const Text(
-                      "Sign In",
+                      "Sign Up",
                       style: TextStyle(fontSize: 18, color: Colors.white),
                     ),
                   ),
@@ -76,15 +86,15 @@ class LoginPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text(
-                    "Haven't you registered yet? ",
+                    "Already user? ",
                     style: TextStyle(color: Colors.black, fontSize: 16),
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, '/register');
+                      Navigator.pushNamed(context, '/login');
                     },
                     child: const Text(
-                      "Sign Up",
+                      "Sign In",
                       style: TextStyle(
                         color: Colors.blue,
                         fontSize: 16,
@@ -94,10 +104,9 @@ class LoginPage extends StatelessWidget {
                   ),
                 ],
               ),
-
             ],
           ),
-        )
+        ),
       ),
     );
   }
