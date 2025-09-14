@@ -1,6 +1,39 @@
 import 'package:flutter/material.dart';
-class RegisterPage extends StatelessWidget {
+
+class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
+
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
+
+  void _register() {
+    String username = usernameController.text.trim();
+    String password = passwordController.text.trim();
+    String confirmPassword = confirmPasswordController.text.trim();
+
+    if (username.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("All fields are required")),
+      );
+      return;
+    }
+
+    if (password != confirmPassword) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Passwords do not match")),
+      );
+      return;
+    }
+
+    // ✅ Success → navigate to LoginPage
+    Navigator.pushReplacementNamed(context, '/login');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -10,62 +43,67 @@ class RegisterPage extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              SizedBox(height: 50,),
+              const SizedBox(height: 50),
 
-              Icon(
+              const Icon(
                 Icons.verified_user,
                 size: 100,
               ),
 
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
 
-              Text(
+              const Text(
                 'Register Now',
-                style: TextStyle(color: Colors.black,fontSize: 24),
+                style: TextStyle(color: Colors.black, fontSize: 24),
               ),
 
-              SizedBox(height: 50,),
+              const SizedBox(height: 50),
 
-              //username text field
+              // Username text field
               Padding(
-                padding: EdgeInsets.all(24.0),
+                padding: const EdgeInsets.all(24.0),
                 child: TextField(
-                  decoration: InputDecoration(
+                  controller: usernameController,
+                  decoration: const InputDecoration(
                     labelText: "Enter your name",
                     border: OutlineInputBorder(),
                   ),
                 ),
               ),
-              //password text field
+
+              // Password text field
               Padding(
-                padding: EdgeInsets.only(left: 24.0,right: 24.0,bottom: 15.0),
+                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
                 child: TextField(
-                  decoration: InputDecoration(
+                  controller: passwordController,
+                  obscureText: true,
+                  decoration: const InputDecoration(
                     labelText: "Enter your password",
                     border: OutlineInputBorder(),
                   ),
                 ),
               ),
 
+              // Confirm password text field
               Padding(
-                padding: EdgeInsets.only(left: 24.0, top: 4.0,right: 24.0,bottom: 15.0),
+                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
                 child: TextField(
-                  decoration: InputDecoration(
-                    labelText: "Enter your password",
+                  controller: confirmPasswordController,
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                    labelText: "Confirm your password",
                     border: OutlineInputBorder(),
                   ),
                 ),
               ),
 
-              // 🔘 Sign In Button
+              // 🔘 Sign Up Button
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
                 child: SizedBox(
-                  width: double.infinity, // full width
+                  width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {
-                      print("Sign In button pressed");
-                    },
+                    onPressed: _register,
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       backgroundColor: Colors.black,
@@ -80,7 +118,8 @@ class RegisterPage extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 50),
+
+              const SizedBox(height: 50),
 
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,

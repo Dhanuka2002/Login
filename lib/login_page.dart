@@ -1,6 +1,34 @@
 import 'package:flutter/material.dart';
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  void _login() {
+    String username = usernameController.text.trim();
+    String password = passwordController.text.trim();
+
+    if (username.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("All fields are required")),
+      );
+      return;
+    }
+
+    // ✅ Check username and password
+    if (username == "user" && password == "1") {
+      Navigator.pushReplacementNamed(context, '/welcome'); // go to Register
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Invalid Credentials")),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +58,7 @@ class LoginPage extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.all(24.0),
                 child: TextField(
+                  controller: usernameController,
                   decoration: InputDecoration(
                     labelText: "Enter your name",
                     border: OutlineInputBorder(),
@@ -40,6 +69,7 @@ class LoginPage extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(left: 24.0, top: 4.0,right: 24.0,bottom: 15.0),
                 child: TextField(
+                  controller: passwordController,
                   decoration: InputDecoration(
                     labelText: "Enter your password",
                     border: OutlineInputBorder(),
@@ -53,9 +83,7 @@ class LoginPage extends StatelessWidget {
                 child: SizedBox(
                   width: double.infinity, // full width
                   child: ElevatedButton(
-                    onPressed: () {
-                      print("Sign In button pressed");
-                    },
+                    onPressed: _login,
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       backgroundColor: Colors.black,

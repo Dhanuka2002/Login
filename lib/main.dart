@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_first_app/welcome_page.dart';
 import 'login_page.dart';
 import 'register_page.dart';
 
@@ -19,12 +20,13 @@ class MyApp extends StatelessWidget {
         useMaterial3: true, // modern look, optional
       ),
       // Start on the Login page
-      home: const LoginPage(),
+      home: const RegisterPage(),
 
       // Define routes
       routes: {
         '/login': (context) => const LoginPage(),
         '/register': (context) => const RegisterPage(),
+        '/welcome':(context) => const WelcomePage(),
       },
     );
   }
